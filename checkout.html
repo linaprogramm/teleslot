@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оплата и бронирование слота — TeleSlot</title>
+  <meta name="description" content="Безопасная оплата слота рекламы в Telegram и MAX. Выбор вида поста (пост, репост, история), автоматическая маркировка erid и гарантия Escrow.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- Minimalist Navigation Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">TS</div>
+        <span class="logo-text">TeleSlot</span>
+        <span class="logo-tag">Оплата</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="catalog.html" class="nav-link">Каталог блогеров</a>
+        <a href="crm.html" class="nav-link">CRM дашборд</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="crm.html" class="crm-pill">
+          <span class="crm-dot"></span>
+          <span>CRM система</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Section -->
+  <main class="section" style="padding: 40px 0;">
+    <div class="container">
+      <div style="margin-bottom: 24px;">
+        <span class="section-tag" style="margin-bottom: 6px;">Безопасная сделка Escrow</span>
+        <h1 class="section-title" style="font-size: 2.1rem; margin-bottom: 4px;">Бронирование слота и оплата</h1>
+        <p class="section-subtitle" style="font-size: 0.95rem;">
+          Деньги удерживаются в Escrow до проверки публикации ботом. Маркировка ОРД (erid) создается автоматически.
+        </p>
+      </div>
+
+      <div class="checkout-layout">
+        <div class="checkout-form-col">
+          <!-- 1. Никнейм Telegram -->
+          <div class="checkout-box" style="padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="font-size: 1.05rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                <span class="step-badge">1</span>
+                Контакт для связи в Telegram
+              </h3>
+              <span style="font-size: 0.72rem; color: #2CB67D; font-weight: 700; background: #E8F8F0; padding: 2px 8px; border-radius: 99px;">
+                ✓ Определен
+              </span>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="tgUsernameInput" class="form-input" value="@founder_pro" placeholder="@your_username">
+              <span style="font-size: 0.74rem; color: var(--text-muted); margin-top: 4px;">
+                По этому никнейму бот согласует публикацию и пришлет отчёт.
+              </span>
+            </div>
+          </div>
+
+          <!-- 2. Формат и креатив -->
+          <form id="checkoutForm">
+            <div class="checkout-box" style="padding: 24px;">
+              <h3 style="font-size: 1.05rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+                <span class="step-badge">2</span>
+                Вид рекламы и материалы
+              </h3>
+
+              <!-- Смена формата прямо в чекауте с живым перерасчетом цены -->
+              <div class="control-group" style="margin-bottom: 16px;">
+                <div class="control-label">
+                  <span>Выбрать вид рекламы:</span>
+                </div>
+                <div class="format-segmented-bar">
+                  <button type="button" class="format-btn checkout-format-btn active" data-format="photo" onclick="switchCheckoutFormat('photo')">
+                    <span class="f-name">📝 Пост</span>
+                    <span class="f-price">Базовый</span>
+                  </button>
+                  <button type="button" class="format-btn checkout-format-btn" data-format="repost" onclick="switchCheckoutFormat('repost')">
+                    <span class="f-name">🔄 Репост</span>
+                    <span class="f-price">-25%</span>
+                  </button>
+                  <button type="button" class="format-btn checkout-format-btn" data-format="story" onclick="switchCheckoutFormat('story')">
+                    <span class="f-name">📱 История</span>
+                    <span class="f-price">-40% 🔥</span>
+                  </button>
+                  <button type="button" class="format-btn checkout-format-btn" data-format="link" onclick="switchCheckoutFormat('link')">
+                    <span class="f-name">🔗 Ссылка</span>
+                    <span class="f-price">-15%</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 14px;">
+                <label class="form-label">Ссылка на рекламный пост в TG / MAX (или ссылку на канал/сайт):</label>
+                <input type="url" id="adPostLink" class="form-input" 
+                       placeholder="https://t.me/your_channel/145" required
+                       value="https://t.me/founder_club/89">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 14px;">
+                <label class="form-label">Пожелания для автора (подводка, точное время):</label>
+                <textarea id="adComments" class="form-textarea" style="min-height: 80px;"
+                          placeholder="Например: опубликовать ровно в 18:00 с нативной подводкой..."></textarea>
+              </div>
+
+              <div style="background: #E8F8F0; border-radius: 10px; padding: 10px 14px; font-size: 0.8rem; color: #1A8452;">
+                🏷️ <b>Авто-маркировка erid включена:</b> регистрация в ОРД и передача в ЕРИР выполняются автоматически.
+              </div>
+            </div>
+
+            <!-- 3. Оплата и подтверждение -->
+            <div class="checkout-box" style="padding: 24px;">
+              <h3 style="font-size: 1.05rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+                <span class="step-badge">3</span>
+                Способ оплаты
+              </h3>
+
+              <div class="payment-methods-grid" style="margin-bottom: 16px;">
+                <div class="payment-method-card active" data-method="sbp" style="padding: 12px;">
+                  <span class="payment-method-icon">⚡</span>
+                  <div>
+                    <div style="font-weight: 700; font-size: 0.88rem;">СБП (0%)</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">По QR-коду</div>
+                  </div>
+                </div>
+
+                <div class="payment-method-card" data-method="card" style="padding: 12px;">
+                  <span class="payment-method-icon">💳</span>
+                  <div>
+                    <div style="font-weight: 700; font-size: 0.88rem;">Карта МИР</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">Без комиссии</div>
+                  </div>
+                </div>
+
+                <div class="payment-method-card" data-method="stars" style="padding: 12px;">
+                  <span class="payment-method-icon">⭐️</span>
+                  <div>
+                    <div style="font-weight: 700; font-size: 0.88rem;">TG Stars & TON</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">В мессенджере</div>
+                  </div>
+                </div>
+
+                <div class="payment-method-card" data-method="invoice" style="padding: 12px;">
+                  <span class="payment-method-icon">🏢</span>
+                  <div>
+                    <div style="font-weight: 700; font-size: 0.88rem;">Для юрлиц / ИП</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">С актами</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Чекбокс соответствия правилам -->
+              <div style="margin-bottom: 16px; background: #FFF9FA; border: 1px solid var(--border-rose); border-radius: 10px; padding: 12px;">
+                <label style="display: flex; gap: 8px; align-items: flex-start; cursor: pointer; font-size: 0.8rem;">
+                  <input type="checkbox" id="complianceAgreement" checked style="margin-top: 2px; accent-color: var(--accent-rose);">
+                  <span>
+                    Подтверждаю: реклама не относится к запрещенным темам (без казино, пирамид, 18+ адалта и накруток).
+                  </span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-rose btn-block btn-lg" id="submitPaymentBtn">
+                <span>Оплатить заказ</span>
+                <span id="payBtnAmount">7 200 ₽</span>
+                <span>→</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Сводка справа -->
+        <div class="checkout-summary-col">
+          <div class="order-summary-card" style="padding: 22px;">
+            <h4 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 14px;">Детали заказа</h4>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
+              <img src="" id="summaryChannelAvatar" alt="Канал" style="width: 42px; height: 42px; border-radius: 12px; object-fit: cover;">
+              <div>
+                <div style="font-weight: 750; font-size: 0.95rem;" id="summaryChannelName">Загрузка...</div>
+                <div style="font-size: 0.76rem; color: var(--text-muted);" id="summaryChannelHandle">@handle</div>
+              </div>
+            </div>
+
+            <div class="summary-row"><span>Платформа:</span> <b id="summaryPlatformText" style="color: #2AABEE;">TG + MAX</b></div>
+            <div class="summary-row"><span>Слот:</span> <b id="summarySlotText" style="color: var(--text-rose);">Загрузка...</b></div>
+            <div class="summary-row"><span>Срок:</span> <b id="summaryDurationText">24 часа</b></div>
+            <div class="summary-row"><span>Вид рекламы:</span> <b id="summaryFormatText" style="color: var(--text-rose);">Пост</b></div>
+            <div class="summary-row"><span>Маркировка:</span> <b style="color: #1A8452;">✓ erid авто</b></div>
+            <div class="summary-row"><span>Гарантия:</span> <b style="color: var(--accent-green);">100% Escrow</b></div>
+
+            <div class="summary-total">
+              <span>Итого:</span>
+              <span id="summaryTotalPrice" style="color: var(--text-primary);">0 ₽</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Модалка проведения платежа -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-dialog">
+      <div id="paymentModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="padding: 30px 0 16px;">
+    <div class="container" style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #8E95A5;">
+      <div>© 2026 TeleSlot. Официальная реклама в Telegram и MAX.</div>
+      <div style="display: flex; gap: 16px;">
+        <a href="catalog.html">Каталог</a>
+        <a href="crm.html">CRM система</a>
+        <a href="contacts.html">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

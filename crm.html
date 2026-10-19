@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM система, Модерация блогеров и Telegram-бот — TeleSlot Дашборд</title>
+  <meta name="description" content="Встроенная CRM система для контроля бронирования слотов рекламы в Telegram и MAX. Заявки от блогеров, модерация, автоматическая маркировка erid и Telegram-бот.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">TS</div>
+        <span class="logo-text">TeleSlot</span>
+        <span class="logo-tag">CRM & Bot</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="catalog.html" class="nav-link">Каталог блогеров</a>
+        <a href="checkout.html" class="nav-link">Оплата</a>
+        <a href="app-demo.html" class="nav-link">Демо Mini App</a>
+        <a href="crm.html" class="nav-link active">CRM система</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="checkout.html" class="btn btn-rose btn-sm">Новый заказ</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="crm-header-bar">
+        <div>
+          <span class="section-tag">Модуль интеграций & Модерация</span>
+          <h1 class="section-title" style="margin-bottom: 6px;">CRM дашборд сделок, авто-маркировки & Telegram-бот</h1>
+          <p class="section-subtitle">
+            Управление заявками на рекламу (Telegram & MAX), модерация новых каналов от блогеров и лог автоматических событий бота.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn btn-outline btn-sm" id="resetCrmBtn">
+            🔄 Сбросить демо-данные
+          </button>
+          <button class="btn btn-primary btn-sm" id="exportCrmBtn">
+            📥 Экспорт в JSON
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="crm-kpi-grid">
+        <div class="crm-kpi-card">
+          <div class="crm-kpi-lbl">Общий оборот сделок:</div>
+          <div class="crm-kpi-val" id="kpiTotalRevenue">0 ₽</div>
+          <div class="crm-kpi-trend">↑ +24% за эту неделю</div>
+        </div>
+
+        <div class="crm-kpi-card">
+          <div class="crm-kpi-lbl">Всего забронировано слотов:</div>
+          <div class="crm-kpi-val" id="kpiTotalCount">0</div>
+          <div class="crm-kpi-trend">Включая Telegram и MAX</div>
+        </div>
+
+        <div class="crm-kpi-card">
+          <div class="crm-kpi-lbl">Активных слотов на контроле:</div>
+          <div class="crm-kpi-val" id="kpiActiveSlots" style="color: var(--text-rose);">0</div>
+          <div class="crm-kpi-trend">Мониторятся ботом секунда в секунду</div>
+        </div>
+
+        <div class="crm-kpi-card">
+          <div class="crm-kpi-lbl">Средний чек размещения:</div>
+          <div class="crm-kpi-val" id="kpiAvgCheck">0 ₽</div>
+          <div class="crm-kpi-trend">Включая микро-бюджеты от 950 ₽</div>
+        </div>
+      </div>
+
+      <!-- CRM Orders Table -->
+      <div style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <h3 style="font-size: 1.25rem; font-weight: 800;">Реестр заказов, авто-маркировки (erid) и заявок от блогеров</h3>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Автосохранение в LocalStorage</span>
+      </div>
+
+      <div class="crm-table-container">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>ID, Дата & erid</th>
+              <th>Рекламодатель / Автор</th>
+              <th>Канал & Платформа</th>
+              <th>Слот, Формат & Объект</th>
+              <th>Сумма</th>
+              <th>Текущий статус</th>
+              <th>Управление</th>
+            </tr>
+          </thead>
+          <tbody id="crmTableBody">
+            <!-- Rendered by js/crm.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Telegram Bot Event Logs Box -->
+      <div class="bot-logs-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #2B303E; padding-bottom: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 8px; height: 8px; background: #2CB67D; border-radius: 50%;"></span>
+            <b style="color: #FFFFFF; font-size: 0.95rem;">Telegram Bot Webhook Event Stream (@TeleSlot_bot)</b>
+          </div>
+          <span style="font-size: 0.76rem; color: #8E95A5;">Синхронизация Escrow, ОРД (erid) & MAX API: ACTIVE</span>
+        </div>
+
+        <div id="botLogsContainer">
+          <!-- Dynamically populated by js/crm.js -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 TeleSlot CRM System & Telegram Bot Integration.</div>
+        <div style="display: flex; gap: 20px;">
+          <a href="index.html">Главная</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="checkout.html">Оплата</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/crm.js"></script>
+</body>
+</html>

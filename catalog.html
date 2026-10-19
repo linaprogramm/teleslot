@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог блогеров Telegram & MAX — TeleSlot</title>
+  <meta name="description" content="Каталог проверенных блогеров в Telegram и MAX. Выбирайте вид рекламы: пост, репост, история или ссылка с мгновенным перерасчетом цены.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">TS</div>
+        <span class="logo-text">TeleSlot</span>
+        <span class="logo-tag">TG + MAX</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="catalog.html" class="nav-link active">Каталог блогеров</a>
+        <a href="index.html#ai-packages" class="nav-link">ИИ-пакеты</a>
+        <a href="crm.html" class="nav-link">CRM дашборд</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-outline btn-sm" onclick="openBloggerModal()">
+          🌱 Я блогер
+        </button>
+        <a href="checkout.html" class="btn btn-rose btn-sm">
+          Оплата
+        </a>
+        <button class="mobile-nav-toggle" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Catalog Section -->
+  <main class="section" style="padding: 40px 0;">
+    <div class="container">
+      <div style="margin-bottom: 24px;">
+        <span class="section-tag" style="margin-bottom: 6px;">Витрина Telegram & MAX</span>
+        <h1 class="section-title" style="font-size: 2.1rem; margin-bottom: 6px;">Каталог каналов и блогеров</h1>
+        <p class="section-subtitle" style="font-size: 0.95rem;">
+          Кликайте на <b>Пост, Репост или Историю</b> — цена пересчитывается автоматически под каждым каналом.
+        </p>
+      </div>
+
+      <!-- Quick Platform & Category Filter Tabs -->
+      <div class="category-tabs-wrap">
+        <!-- Rendered by js/catalog.js -->
+      </div>
+
+      <!-- Channels Grid -->
+      <div class="channels-grid" id="channelsContainer">
+        <!-- Rendered by js/catalog.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Blogger Submission Modal -->
+  <div class="modal-overlay" id="bloggerCollabModal">
+    <div class="modal-dialog">
+      <button class="modal-close" aria-label="Закрыть">✕</button>
+      <div style="margin-bottom: 16px;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 4px;">Предложить свой канал / блог</h3>
+        <p style="font-size: 0.84rem; color: var(--text-secondary);">
+          Сотрудничаем с авторами от 500+ подписчиков в Telegram и MAX.
+        </p>
+      </div>
+
+      <form id="bloggerCollabForm" style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="form-group">
+          <label class="form-label">Название канала:</label>
+          <input type="text" name="channelName" class="form-input" placeholder="Например: Мой блог" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label class="form-label">Платформа:</label>
+            <select name="bloggerPlatform" class="form-select">
+              <option value="Telegram">Telegram</option>
+              <option value="MAX">MAX</option>
+              <option value="Telegram + MAX">Telegram + MAX</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Подписчики:</label>
+            <input type="number" name="subsCount" class="form-input" placeholder="2500" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ссылка или @username:</label>
+          <input type="text" name="bloggerTg" class="form-input" placeholder="@channel" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Желаемая цена за пост (руб.):</label>
+          <input type="number" name="desiredPrice" class="form-input" placeholder="1200" required>
+        </div>
+        <button type="submit" class="btn btn-rose btn-block" style="margin-top: 6px;">
+          Отправить на модерацию в CRM
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Modal for Analytics & TGStat Screenshot -->
+  <div class="modal-overlay" id="analyticsModalOverlay">
+    <div class="modal-dialog">
+      <button class="modal-close" aria-label="Закрыть">✕</button>
+      <div id="analyticsModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="padding: 40px 0 20px;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 0.84rem; color: #8E95A5;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="logo-icon" style="width: 28px; height: 28px; font-size: 0.75rem;">TS</div>
+          <span style="color: #fff; font-weight: 700;">TeleSlot</span>
+          <span>© 2026. Реклама в Telegram & MAX.</span>
+        </div>
+        <div style="display: flex; gap: 18px;">
+          <a href="index.html">Главная</a>
+          <a href="crm.html">CRM система</a>
+          <a href="checkout.html">Оплата</a>
+          <a href="contacts.html">Контакты</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/crm.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Интерактивное Telegram & MAX Mini App демо — TeleSlot</title>
+  <meta name="description" content="Попробуйте симулятор Telegram Mini App: автоматическое считывание ника, выбор категорий блогеров, слоты времени, виды постов и авто-маркировка erid.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .simulator-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 40px 0;
+    }
+    @media (max-width: 900px) {
+      .simulator-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+    .miniapp-card-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .mini-chip-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .mini-chip-tabs::-webkit-scrollbar { display: none; }
+    .mini-chip {
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .mini-chip.active {
+      background: var(--text-primary);
+      color: #fff;
+      border-color: var(--text-primary);
+    }
+    .mini-chip.hot {
+      background: linear-gradient(135deg, #F4A1B4, #DF768E);
+      color: #fff;
+      border-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">TS</div>
+        <span class="logo-text">TeleSlot</span>
+        <span class="logo-tag">Playground</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="catalog.html" class="nav-link">Каталог блогеров</a>
+        <a href="index.html#ai-packages" class="nav-link">ИИ-пакеты</a>
+        <a href="crm.html" class="nav-link">CRM система</a>
+        <a href="checkout.html" class="nav-link">Оплата</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="catalog.html" class="btn btn-primary btn-sm">В каталог</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="simulator-wrapper">
+        <!-- Controls & Explanation -->
+        <div>
+          <span class="section-tag">Playground & Симулятор</span>
+          <h1 class="section-title">Как работает Mini App в Telegram и MAX</h1>
+          <p class="section-subtitle" style="margin-bottom: 24px;">
+            Вся магия сервиса доступна пользователю прямо в мессенджере. Попробуйте кликать по категориям, слотам и видам постов в макете смартфона справа.
+          </p>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 24px;">
+            <h4 style="font-size: 1rem; font-weight: 750; margin-bottom: 8px;">Ключевые сценарии Telegram Mini App:</h4>
+            <ul style="display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
+              <li>⚡ <b>Автосчитывание ника:</b> WebApp автоматически получает <code style="background: #eee; padding: 2px 6px; border-radius: 4px;">@username</code> рекламодателя для связи.</li>
+              <li>⏰ <b>Фиксация слота (во сколько):</b> Выбор точного времени выхода (напр. 23 октября в 14:00 или 18:00).</li>
+              <li>📸 <b>Выбор вида поста:</b> Фото+текст, нативная ссылка, репост или вертикальная история (Stories).</li>
+              <li>🤖 <b>ИИ-пакеты с отчётом в бота:</b> Автоматический подбор связок и согласование в мессенджере.</li>
+              <li>🏷️ <b>Авто-маркировка erid:</b> Токен генерируется автоматически без ручной подачи в ОРД.</li>
+            </ul>
+          </div>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a href="catalog.html" class="btn btn-rose">
+              Открыть полный каталог каналов
+            </a>
+            <a href="checkout.html" class="btn btn-outline">
+              Оформить и оплатить слот
+            </a>
+          </div>
+        </div>
+
+        <!-- Phone Mockup Frame -->
+        <div>
+          <div class="phone-mockup-frame">
+            <div class="phone-notch"></div>
+            
+            <!-- Telegram App Header -->
+            <div class="miniapp-tg-header">
+              <span class="tg-close">Закрыть</span>
+              <span>TeleSlot • TG + MAX</span>
+              <span style="font-size: 1.2rem; cursor: pointer;">•••</span>
+            </div>
+
+            <!-- Mini App Body -->
+            <div class="miniapp-content">
+              <!-- Welcome & Nickname Box -->
+              <div class="miniapp-welcome">
+                <h5>Привет, <span id="miniAppNick" style="color: var(--text-rose);">@founder_pro</span>! 👋</h5>
+                <p>Твой Telegram-аккаунт подключен. Выбирай блогера, слот и вид поста с авто-маркировкой erid:</p>
+              </div>
+
+              <!-- Mini Categories -->
+              <div class="mini-chip-tabs" id="miniCatTabs">
+                <button class="mini-chip hot active" data-cat="deals">🔥 Выгодные</button>
+                <button class="mini-chip" data-cat="mini">🌱 От 950 ₽</button>
+                <button class="mini-chip" data-cat="news">📰 Новости</button>
+                <button class="mini-chip" data-cat="beauty">💄 Красота</button>
+                <button class="mini-chip" data-cat="business">💼 Бизнес</button>
+              </div>
+
+              <!-- Channel Feed in Mini App -->
+              <div id="miniChannelsFeed">
+                <!-- Dynamically populated -->
+              </div>
+
+              <!-- Mini App Bottom Fixed Button -->
+              <div class="miniapp-main-btn" onclick="openMiniAppCheckout()">
+                Забронировать выбранный слот →
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 TeleSlot. Telegram Mini App Playground.</div>
+        <div style="display: flex; gap: 20px;">
+          <a href="index.html">Главная</a>
+          <a href="catalog.html">Каталог</a>
+          <a href="crm.html">CRM система</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let activeMiniCat = 'deals';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedUser = localStorage.getItem('teleslot_user') || '@founder_pro';
+      const nickEl = document.querySelector('#miniAppNick');
+      if (nickEl) nickEl.textContent = savedUser;
+
+      initMiniAppFeed();
+    });
+
+    function initMiniAppFeed() {
+      const container = document.querySelector('#miniChannelsFeed');
+      const tabs = document.querySelectorAll('#miniCatTabs .mini-chip');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeMiniCat = tab.dataset.cat;
+          renderMiniFeed();
+        });
+      });
+
+      renderMiniFeed();
+    }
+
+    function renderMiniFeed() {
+      const container = document.querySelector('#miniChannelsFeed');
+      let filtered = CHANNELS_DATA;
+      if (activeMiniCat === 'deals') filtered = CHANNELS_DATA.filter(c => c.category === 'deals' || c.badge.includes('Скидка'));
+      if (activeMiniCat === 'mini') filtered = CHANNELS_DATA.filter(c => c.subscribers <= 15000);
+      if (activeMiniCat === 'news') filtered = CHANNELS_DATA.filter(c => c.category === 'news');
+      if (activeMiniCat === 'beauty') filtered = CHANNELS_DATA.filter(c => c.category === 'beauty');
+      if (activeMiniCat === 'business') filtered = CHANNELS_DATA.filter(c => c.category === 'business');
+
+      container.innerHTML = filtered.map(ch => {
+        return `
+          <div class="miniapp-card-item">
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+              <img src="${ch.avatar}" style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover;">
+              <div style="flex: 1;">
+                <div style="font-size: 0.86rem; font-weight: 750;">${ch.name}</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">${ch.handle} • ${ch.platformLabel}</div>
+              </div>
+              <span style="font-size: 0.85rem; font-weight: 800; color: var(--text-rose);">
+                ${ch.prices['24h'].toLocaleString('ru-RU')} ₽
+              </span>
+            </div>
+
+            <div style="display: flex; gap: 6px; font-size: 0.72rem; margin-bottom: 8px; flex-wrap: wrap;">
+              <span style="background: #F3EFF2; padding: 2px 6px; border-radius: 4px;">👥 ${(ch.subscribers/1000).toFixed(0)}k</span>
+              <span style="background: #F3EFF2; padding: 2px 6px; border-radius: 4px;">👁 ${(ch.dailyViews/1000).toFixed(1)}k / сут</span>
+              <span style="background: #E8F8F0; color: #1A8452; padding: 2px 6px; border-radius: 4px;">✓ erid авто</span>
+              <span style="background: #FFF0F4; color: #C05572; padding: 2px 6px; border-radius: 4px;">Слот: 23 окт 18:00</span>
+            </div>
+
+            <button class="btn btn-outline btn-block" style="padding: 6px; font-size: 0.76rem;" 
+                    onclick="selectAndGoCheckout('${ch.id}', 's2', '24h')">
+              Выбрать слот и вид поста →
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectAndGoCheckout(chId, slotId, dur) {
+      window.location.href = `checkout.html?channel=${chId}&slot=${slotId}&dur=${dur}`;
+    }
+
+    function openMiniAppCheckout() {
+      window.location.href = `checkout.html`;
+    }
+  </script>
+</body>
+</html>

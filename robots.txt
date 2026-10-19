@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://teleslot.app/sitemap.xml
